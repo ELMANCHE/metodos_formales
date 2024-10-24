@@ -1,0 +1,42 @@
+class City
+instance variables
+  ambulances: map nat to Ambulance := {}; -- Mapa de ambulancias en la ciudad
+  hospitals: map nat to Hospital := {}; -- Mapa de hospitales en la ciudad
+  emergencies: set of Emergency := {}; -- Emergencias en la ciudad
+
+operations
+  -- Añadir una ambulancia a la ciudad
+  public AddAmbulance: Ambulance ==> ()
+  AddAmbulance(amb) ==
+    ambulances := ambulances union {amb.id |-> amb};
+
+  -- Añadir un hospital a la ciudad
+  public AddHospital: Hospital ==> ()
+  AddHospital(hosp) ==
+    hospitals := hospitals union {hosp.id |-> hosp};
+
+  -- Añadir una emergencia a la ciudad
+  public AddEmergency: Emergency ==> ()
+  AddEmergency(emerg) ==
+    emergencies := emergencies union {emerg};
+
+  -- Asignar la ambulancia más cercana a una emergencia
+  public AssignAmbulanceToEmergency: Emergency ==> nat
+  AssignAmbulanceToEmergency(emerg) ==
+  (
+    dcl nearestAmbulance: nat := 0;
+    dcl minDistance: nat := 10000; -- Valor inicial alto para comparación
+    for all ambId in set dom ambulances do
+      let amb = ambulances(ambId) in
+      (
+        if amb.state = <AVAILABLE> and abs(amb.location - emerg.location) < minDistance then
+        (
+          nearestAmbulance := amb.id;
+          minDistance := abs(amb.location - emerg.location)
+        )
+      );
+    ambulances(nearestAmbulance).AssignToEmergency(emerg.location);
+    return nearestAmbulance
+  )
+  pre emergencies <> {} and nearestAmbulance <> 0;
+end City

@@ -1,0 +1,29 @@
+class CoordinationSystem
+instance variables
+  city: City; -- La ciudad donde se gestionan las ambulancias y emergencias
+
+operations
+  -- Constructor de la clase CoordinationSystem
+  public CoordinationSystem: City ==> CoordinationSystem
+  CoordinationSystem(c) ==
+  (
+    city := c
+  );
+
+  -- Manejar una nueva emergencia: Añadir emergencia y asignar ambulancia
+  public HandleEmergency: nat ==> ()
+  HandleEmergency(emergencyLocation) ==
+  (
+    -- Crear una nueva emergencia
+    dcl emerg : Emergency;
+    emerg := new Emergency(emergencyLocation);
+    city.AddEmergency(emerg);
+
+    -- Declarar e inicializar la ambulancia asignada
+    let assignedAmbulance : nat = city.AssignAmbulanceToEmergency(emerg) in
+    (
+      IO`println("Ambulancia " ^ nat2str(assignedAmbulance) ^ " asignada a la emergencia en la ubicación " ^ nat2str(emergencyLocation) ^ ".")
+    )
+  )
+  pre city <> nil; -- Verificar que la ciudad esté correctamente inicializada
+end CoordinationSystem

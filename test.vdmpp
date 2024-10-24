@@ -1,0 +1,36 @@
+class Test
+operations
+  public run : () ==> ()
+  run() ==
+  (
+    -- Declarar e instanciar la ciudad usando let
+    let city : City = new City() in
+    (
+      -- Añadir hospitales
+      let hosp1 : Hospital = new Hospital(1, 10) in
+      city.AddHospital(hosp1);
+
+      let hosp2 : Hospital = new Hospital(2, 50) in
+      city.AddHospital(hosp2);
+
+      -- Añadir ambulancias
+      let amb1 : Ambulance = new Ambulance(1, 5) in
+      city.AddAmbulance(amb1);
+
+      let amb2 : Ambulance = new Ambulance(2, 20) in
+      city.AddAmbulance(amb2);
+
+      -- Instanciar el sistema de coordinación
+      let system : CoordinationSystem = new CoordinationSystem(city) in
+      (
+        -- Manejar una emergencia
+        IO`println("Simulación de emergencia en la ubicación 15");
+        system.HandleEmergency(15);
+
+        -- Manejar otra emergencia
+        IO`println("Simulación de otra emergencia en la ubicación 30");
+        system.HandleEmergency(30)
+      )
+    )
+  )
+end Test

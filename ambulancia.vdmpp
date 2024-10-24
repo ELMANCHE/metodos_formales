@@ -1,0 +1,44 @@
+class Ambulance
+types
+  State = <AVAILABLE> | <EN_ROUTE> | <OCCUPIED>;
+
+instance variables
+  id: nat; -- ID único de la ambulancia
+  location: nat; -- Coordenada actual de la ambulancia
+  state: State; -- Estado actual de la ambulancia
+
+operations
+  -- Constructor de la clase Ambulance
+  public Ambulance: nat * nat ==> Ambulance
+  Ambulance(ambId, initLocation) ==
+  (
+    id := ambId;
+    location := initLocation;
+    state := <AVAILABLE>
+  );
+
+  -- Asignar la ambulancia a una emergencia
+  public AssignToEmergency: nat ==> ()
+  AssignToEmergency(emergencyLocation) ==
+  (
+    location := emergencyLocation;
+    state := <EN_ROUTE>
+  )
+  pre state = <AVAILABLE>;
+
+  -- Marcar la ambulancia como disponible después de la emergencia
+  public MarkAvailable: () ==> ()
+  MarkAvailable() ==
+  (
+    state := <AVAILABLE>
+  )
+  pre state = <OCCUPIED>;
+
+  -- Llegada a la emergencia
+  public ArriveAtEmergency: () ==> ()
+  ArriveAtEmergency() ==
+  (
+    state := <OCCUPIED>
+  )
+  pre state = <EN_ROUTE>;
+end Ambulance

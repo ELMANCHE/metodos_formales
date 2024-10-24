@@ -1,0 +1,13 @@
+class Hospital
+instance variables
+  id: nat; -- ID del hospital
+  location: nat; -- Coordenada del hospital
+operations
+  -- Constructor del hospital
+  public Hospital: nat * nat ==> Hospital
+  Hospital(hospId, hospLocation) ==
+  (
+    id := hospId;
+    location := hospLocation
+  );
+end Hospital

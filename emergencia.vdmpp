@@ -1,0 +1,11 @@
+class Emergency
+instance variables
+  location: nat; -- Coordenada de la emergencia
+operations
+  -- Constructor de la emergencia
+  public Emergency: nat ==> Emergency
+  Emergency(emergencyLocation) ==
+  (
+    location := emergencyLocation
+  );
+end Emergency
